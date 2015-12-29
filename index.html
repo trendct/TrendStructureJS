@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+	<heady>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+		<script src="js/StructureJS.js"></script>
+		<script src="js/main.js"></script>
+
+	</head>
+
+	<body>
+
+		<style scoped>
+			.main_container{
+				width: 50%;
+				margin-right: auto;
+				margin-left: auto;
+			}
+
+			#convert_button{
+				width: 100%;
+			}
+
+			@media(max-width:799px){
+				.main_container{
+					width: 80%;
+				}
+
+			}
+
+		</style>
+		<div class="main_container">
+			<h1>StructureJS</h1>
+			<p class="lead">Creates a structured JSON object from a flat TSV and a structure template.</p>
+			<p>This tool allows spreadsheets (1NF tables) with duplicate rows to be put into higher "normal forms" for faster and cleaner access via indexing. <em>This is is in very early development stages and shouldn't be relied on for accurate data. Always verify your processed data against your raw data.</em></p>
+			<p><strong>Sample data: </strong> No documentation yet, but for now, there is sample data and a sample JSON template. The sample data represents typical spreadsheet data that needs to be normalized, with test scores given for two tests, in three grades at 5 different schools. In flat 2D JSON, each of the 30 rows would be an object that would not be easy to query.</p>
+			<p><strong>Usage notes: </strong>Use column names (case-sensitive!) where you want the value plugged in. Use "val" (or any other non-column string) as a placeholder for values. Please try it out with your own data and let me know if it breaks and how:</p>
+			<p class="text-right"><em>--Jake Kara / jkara@trendct.org</em></p>
+
+			<form role="form">
+				<div class="form-group">
+					<label for="tsv_text">Copy and paste TSV data</label>
+					<textarea id="tsv_text" name="tsv_text" class="form-control" rows="10" placeholder="Copy and paste spreadsheet..." value="">school.id	school.name	grade	test	score
+SCH1	Johnson Tech	1	math	13.5
+SCH1	Johnson Tech	3	math	81.8
+SCH1	Johnson Tech	4	math	26.7
+SCH2	Apple Academy	1	math	42.2
+SCH2	Apple Academy	3	math	32.4
+SCH2	Apple Academy	4	math	19.6
+SCH3	BKZ International Studies	1	math	54.8
+SCH3	BKZ International Studies	3	math	73.4
+SCH3	BKZ International Studies	4	math	47.0
+SCH4	Upper Valley VoTech	1	math	45.2
+SCH4	Upper Valley VoTech	3	math	45.7
+SCH4	Upper Valley VoTech	4	math	97.4
+SCH5	Culinary school of Hartford	1	math	54.0
+SCH5	Culinary school of Hartford	3	math	82.7
+SCH5	Culinary school of Hartford	4	math	91.0
+SCH1	Johnson Tech	1	english	69.4
+SCH1	Johnson Tech	3	english	1.3
+SCH1	Johnson Tech	4	english	83.4
+SCH2	Apple Academy	1	english	15.7
+SCH2	Apple Academy	3	english	10.9
+SCH2	Apple Academy	4	english	1.1
+SCH3	BKZ International Studies	1	english	34.5
+SCH3	BKZ International Studies	3	english	47.9
+SCH3	BKZ International Studies	4	english	39.3
+SCH4	Upper Valley VoTech	1	english	70.1
+SCH4	Upper Valley VoTech	3	english	2.9
+SCH4	Upper Valley VoTech	4	english	65.0
+SCH5	Culinary school of Hartford	1	english	90.6
+SCH5	Culinary school of Hartford	3	english	91.7
+SCH5	Culinary school of Hartford	4	english	71.7</textarea>
+				</div>
+			
+				<div class="form-group">
+					<label for="indexes">JSON template</label>
+					<input id="keys_json" name="indexes" class="form-control" rows="20" value='{"school.id": {"school.name": "val", "grade": {"test":{"score":"val"}}}}'></input>
+				</div>
+			
+
+				<div class="form-group">
+					<button id="convert_button" class="btn btn-danger" type="button">Convert</button>
+				</div>
+
+
+				<div class="form-group">
+					<div id="json_output">
+					</div>
+					<textarea  id="json_text" name="json_text" class="form-control" rows="10" placeholder="JSON output..."></textarea>
+				</div>
+
+
+			</form>
+
+		</div>
+	</body>
+</html>
